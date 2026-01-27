@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
-  # 認証をスキップ: サインアップ（new, create）はログイン前に行うため
+  # サインアップ（new, create）はログイン前に行うため
   allow_unauthenticated_access only: [:new, :create]
+
+  before_action :set_user, only: [:show]
+  before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
     @user  = Current.session.user   # 左（自分）
@@ -13,32 +16,30 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @book = Book.new
+    @book  = Book.new
+    @books = @user.books
   end
 
   def create
     @user = User.new(user_params)
+
     if @user.save
-      # ユーザー登録成功後、ログイン画面へリダイレクト
-      redirect_to new_session_path, notice: "ユーザー登録が完了しました！続けてログインしてください。"
+      start_new_session_for(@user)  # 自動ログイン
+      redirect_to user_path(@user), notice: "Welcome! You have signed up successfully."
     else
-      # エラー時はフォームを再表示
       render :new, status: :unprocessable_entity
     end
   end
 
-  # ✅ 自分の編集画面だけ表示（URLの:idに依存しない）
   def edit
     @user = Current.session.user
   end
 
-  # ✅ 自分だけ更新（URLの:idに依存しない）
   def update
     @user = Current.session.user
 
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: "ユーザー情報を更新しました"
+      redirect_to user_path(@user), notice: "User was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -46,8 +47,23 @@ class UsersController < ApplicationController
 
   private
 
-  # ✅ user_paramsは1つだけに統一（avatarも許可するならここに残す）
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def ensure_correct_user
+    return if params[:id].to_s == Current.session.user.id.to_s
+    redirect_to user_path(Current.session.user)
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(
+      :name,
+      :introduction,
+      :email_address,
+      :password,
+      :password_confirmation,
+      :avatar
+    )
   end
 end

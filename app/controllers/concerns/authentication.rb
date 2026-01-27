@@ -54,4 +54,5 @@ module Authentication
     Current.session.destroy
     cookies.delete(:session_id)
   end
+
 end

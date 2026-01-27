@@ -1,14 +1,18 @@
 class SessionsController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create ]
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
+  allow_unauthenticated_access only: %i[new create]
+  rate_limit to: 10, within: 3.minutes, only: :create,
+             with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
   end
 
   def create
-    if (user = User.find_by(name: params[:name]))&.authenticate(params[:password]) # この行を変更
+    name = params[:name]
+    password = params[:password]
+
+    if (user = User.find_by(name: name))&.authenticate(password)
       start_new_session_for user
-      redirect_to users_path
+      redirect_to user_path(user), notice: "Logged in successfully."
     else
       redirect_to new_session_path, alert: "Try another name or password."
     end
@@ -16,6 +20,6 @@ class SessionsController < ApplicationController
 
   def destroy
     terminate_session
-    redirect_to after_logout_url, status: :see_other
+    redirect_to root_path, notice: "Logged out successfully.", status: :see_other
   end
 end

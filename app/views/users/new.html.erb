@@ -1,6 +1,6 @@
-<h2>サインアップ</h2>
+<h1>Sign up</h1>
 
-<%= form_with url: session_path, method: :post do |f| %>
+<%= form_with model: @user, url: "/users/sign_up", local: true do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -14,12 +14,12 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.text_field :name %>
   </div>
 
   <div class="field">
     <%= f.label :email_address %><br>
-    <%= f.email_field :email_address %>
+    <%= f.text_field :email_address %>
   </div>
 
   <div class="field">
@@ -33,8 +33,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "サインアップ" %>
+    <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
-<%= link_to "ログインはこちら", new_session_path %>

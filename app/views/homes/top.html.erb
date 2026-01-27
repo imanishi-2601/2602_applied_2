@@ -1,2 +1,10 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="top-container">
+  <h1>Welcome to Bookers</h1>
+
+  <% unless authenticated? %>
+    <div class="top-actions">
+      <%= link_to "Log in", new_session_path, class: "btn btn-login" %>
+      <%= link_to "Sign up", new_user_path, class: "btn btn-signup" %>
+    </div>
+  <% end %>
+</div>

@@ -7,11 +7,13 @@ Rails.application.routes.draw do
 
   resource :session
   resources :passwords, param: :token
-  resources :books, only: [:index, :create, :show, :edit, :destroy]
+  resources :books, only: [:index, :show, :create, :edit, :update, :destroy]
 
 
   root "homes#top"
-  get "homes/about" => "homes#about"
+  get "about", to: "homes#about"
+  get  "/users/sign_up", to: "users#new"
+  post "/users/sign_up", to: "users#create"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
