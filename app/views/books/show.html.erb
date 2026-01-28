@@ -1,6 +1,7 @@
-<div class="user-show">
+<div class="container user-show">
+  <div class="row">
   <!-- 左：User info + New book -->
-  <div class="user-left">
+  <div class="col-md-3 user-left">
     <h1>User info</h1>
 
   <div class="avatar-box">
@@ -24,7 +25,7 @@
     </tr>
   </table>
 
-  <%= link_to edit_user_path(Current.session.user) do %>
+  <%= link_to edit_user_path(@book.user) do %>
     <i class="fa-solid fa-user-gear"></i>
   <% end %>
 
@@ -43,7 +44,7 @@
 
 
   <!-- 右：Books一覧（Title / Opinion） -->
-  <div class="user-right">
+  <div class="col-md-8 offset-md-1 user-right">
     <h1>Book detail</h1>
 
     <table class="users-table">
@@ -68,4 +69,5 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>
