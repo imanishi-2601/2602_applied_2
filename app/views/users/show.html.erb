@@ -1,16 +1,14 @@
-<div class="container">
+<div class="container user-show">
   <div class="row">
     <!-- 左：User info + New book（サイドバー） -->
-    <div class="col-md-3">
+    <div class="col-md-3 user-left">
       <h1>User info</h1>
 
       <div class="avatar-box">
-        <%= link_to user_path(@user) do %>
-          <% if @user.avatar.attached? %>
-            <%= image_tag @user.avatar, class: "avatar-image" %>
-          <% else %>
-            <%= image_tag "no_image.jpg", class: "avatar-image" %>
-          <% end %>
+        <% if @user.profile_image.attached? %>
+          <%= image_tag @user.profile_image, class: "avatar-image" %>
+        <% else %>
+          <%= image_tag "no_image.jpg", class: "avatar-image" %>
         <% end %>
       </div>
 
@@ -46,12 +44,13 @@
     </div>
 
     <!-- 右：投稿一覧 -->
-    <div class="col-md-8 offset-md-1">
+    <div class="col-md-8 offset-md-1 user-right">
       <h1>Books</h1>
 
-      <table>
+      <table class="users-table">
         <thead>
           <tr>
+            <th></th>
             <th>Title</th>
             <th>Opinion</th>
           </tr>
@@ -59,6 +58,15 @@
         <tbody>
           <% @books.each do |book| %>
             <tr>
+              <td>
+                <%= link_to user_path(book.user) do %>
+                  <% if book.user.profile_image.attached? %>
+                    <%= image_tag book.user.profile_image, width: 80, height: 80 %>
+                  <% else %>
+                    <%= image_tag "no-image.jpg", width: 80, height: 80 %>
+                  <% end %>
+                <% end %>
+              </td>
               <td><%= link_to book.title, book_path(book) %></td>
               <td><%= book.body %></td>
             </tr>

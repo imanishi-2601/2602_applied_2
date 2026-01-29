@@ -4,11 +4,11 @@
   <div class="col-md-3 user-left">
     <h1>User info</h1>
 
-    <div class="profile_image-box">
-      <% if @user.avatar.attached? %>
-        <%= image_tag @user.avatar, class: "profile_image" %>
+    <div class="avatar-box">
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image, class: "avatar-image" %>
       <% else %>
-        <%= image_tag "no_image.jpg", class: "profile_image" %>
+        <%= image_tag "no_image.jpg", class: "avatar-image" %>
       <% end %>
     </div>
 
@@ -55,11 +55,13 @@
         <% @users.each do |user| %>
           <tr>
             <td>
-              <% if user.avatar.attached? %>
-                <%= image_tag user.avatar, width: 40, height: 40 %>
+            <div class="avatar-box">
+              <% if user.profile_image.attached? %>
+                <%= image_tag user.profile_image, width: 80, height: 80 %>
               <% else %>
-                <%= image_tag "no_image.jpg", width: 40, height: 40 %>
+                <%= image_tag "no_image.jpg", class: "avatar-image", width: 80, height: 80 %>
               <% end %>
+            </div>
             </td>
 
             <td><%= user.name %></td>
