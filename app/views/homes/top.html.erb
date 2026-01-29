@@ -1,13 +1,15 @@
-<div class="top-container">
+<div class="container">
+<div class="row">
+<div class="mx-auto col-11 col-sm-10 col-lg-8 col-xl-6">
   <h1>
-    <i class="fa-solid fa-book"></i>
-    Welcome to Bookers
+    welcome to
+    <i class="fa-solid fa-book"></i><strong class="logo-text">Bookers</strong>
+    !!
   </h1>
 
   <p>
     In
-     <i class="fa-solid fa-book"></i>
-     <strong>Bookers</strong>
+     <i class="fa-solid fa-book"></i><strong class="logo-text">Bookers</strong>
     ,
   </p>
 
@@ -16,13 +18,15 @@
   </p>
 
   <p>
-    about various books!</h2>
+    about various books!
   </p>
 
   <% unless authenticated? %>
     <div class="top-actions">
-      <%= link_to "Log in", new_session_path, class: "btn btn-login" %>
-      <%= link_to "Sign up", new_user_path, class: "btn btn-signup" %>
+      <%= link_to "Log in", new_session_path, class: "btn btn-info btn-sm btn-block mb-3 login" %>
+      <%= link_to "Sign up", new_user_path, class: "btn btn-success btn-sm btn-block mb-3 signup" %>
     </div>
   <% end %>
+</div>
+</div>
 </div>

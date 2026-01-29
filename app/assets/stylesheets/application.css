@@ -91,6 +91,7 @@ body {
 }
 
 main {
+  margin-top: 20px;
   margin-bottom: 50px;
   padding: 0 20px;
 }
@@ -195,4 +196,14 @@ footer {
 .users-table td.opinion-col {
   width: 150px;
   word-break: break-word; /* 長文でも崩れない */
+}
+
+body {
+  font-family:
+-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"
+}
+
+.logo-text {
+  font-weight: bold;
+  text-shadow: 0 0 2px;
 }

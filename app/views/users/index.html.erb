@@ -46,8 +46,8 @@
     <table class="users-table">
       <thead>
         <tr>
-          <th>Image</th>
-          <th>Name</th>
+          <th>image</th>
+          <th>name</th>
           <th></th>
         </tr>
       </thead>
@@ -59,7 +59,7 @@
               <% if user.profile_image.attached? %>
                 <%= image_tag user.profile_image, width: 80, height: 80 %>
               <% else %>
-                <%= image_tag "no_image.jpg", class: "avatar-image", width: 80, height: 80 %>
+                <span class="no-image">NO IMAGE</span>
               <% end %>
             </div>
             </td>

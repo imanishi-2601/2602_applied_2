@@ -63,7 +63,7 @@
                   <% if book.user.profile_image.attached? %>
                     <%= image_tag book.user.profile_image, width: 80, height: 80 %>
                   <% else %>
-                    <%= image_tag "no-image.jpg", width: 80, height: 80 %>
+                    <span class="no-image">NO IMAGE</span>
                   <% end %>
                 <% end %>
               </td>
