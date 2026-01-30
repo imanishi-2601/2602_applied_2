@@ -28,13 +28,14 @@
             <td><%= link_to @book.title, book_path(@book) %></td>
             <td><%= @book.body %></td>
 
-            <td>
-              <% if @book.user == current_user %>
-                <%= link_to "Edit", edit_book_path(@book) %>
-                <%= link_to "Destroy", book_path(@book),
-                            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-              <% end %>
-            </td>
+<td class="book-actions">
+  <% if @book.user == current_user %>
+    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success me-2" %>
+    <%= link_to "Destroy", book_path(@book),
+        class: "btn btn-sm btn-danger",
+        data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  <% end %>
+</td>
           </tr>
         </tbody>
       </table>
