@@ -11,88 +11,86 @@
 
 <div class="container user-show">
   <div class="row">
-  <!-- 左：User info + New book -->
-  <div class="col-md-3 user-left">
 
+    <!-- 左：User info + New book -->
+    <div class="col-md-3 user-left">
 
-    <h1>User info</h1>
+      <h1>User info</h1>
 
-    <div class="avatar-box">
-      <% if @user.profile_image.attached? %>
-        <%= image_tag @user.profile_image, class: "avatar-image" %>
-      <% else %>
-        <%= image_tag "no_image.jpg", class: "avatar-image" %>
+      <div class="avatar-box">
+        <% if @user.profile_image.attached? %>
+          <%= image_tag @user.profile_image, class: "avatar-image" %>
+        <% else %>
+          <span class="no-image">NO IMAGE</span>
+        <% end %>
+      </div>
+
+      <table>
+        <tr>
+          <th>name</th>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <td><%= @user.introduction %></td>
+        </tr>
+      </table>
+
+      <%= link_to edit_user_path(@user),
+                  class: "btn btn-outline-secondary btn-block user-edit-btn" do %>
+        <i class="fa-solid fa-user-gear"></i>
+      <% end %>
+
+      <h1>New book</h1>
+
+      <%= form_with model: @book, local: true do |f| %>
+        <h3>Title</h3>
+        <%= f.text_field :title %>
+
+        <h3>Opinion</h3>
+        <%= f.text_area :body %>
+
+        <div class="form-actions">
+          <%= f.submit "Create Book" %>
+        </div>
       <% end %>
     </div>
 
-    <table>
+    <!-- 右：Books一覧 -->
+<div class="col-md-8 offset-md-1 user-right">
+  <h1>Books</h1>
+
+  <table class="users-table">
+    <thead>
       <tr>
-        <th>name</th>
-        <td><%= @user.name %></td>
+        <th class="book-image"></th>
+        <th>Title</th>
+        <th>Opinion</th>
+        <th></th>
       </tr>
-      <tr>
-        <th>introduction</th>
-        <td><%= @user.introduction %></td>
-      </tr>
-    </table>
-
-    <%= link_to edit_user_path(@user) do %>
-      <i class="fa-solid fa-user-gear"></i>
-    <% end %>
-
-    <h1>New book</h1>
-
-
-    <%= form_with model: @book, local: true do |f| %>
-      <h3>Title</h3>
-      <%= f.text_field :title %>
-
-      <h3>Opinion</h3>
-      <%= f.text_area :body %>
-
-      <div class="form-actions">
-        <%= f.submit "Create Book" %>
-      </div>
-    <% end %>
-  </div>
-
-  <!-- 右：Books一覧（Title / Opinion） -->
-  <div class="col-md-8 offset-md-1 user-right">
-    <h1>Books</h1>
-
-    <table class="users-table">
-      <thead>
+    </thead>
+    <tbody>
+      <% @books.each do |book| %>
         <tr>
-          <th class="book-image"></th>
-          <th>Title</th>
-          <th>Opinion</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @books.each do |book| %>
-          <tr>
-                <!-- Image -->
-            <td>
-              <%= link_to user_path(book.user) do %>
+          <td>
+            <%= link_to user_path(book.user), class: "user-card-link" do %>
+              <div class="avatar-box">
                 <% if book.user.profile_image.attached? %>
                   <%= image_tag book.user.profile_image, width: 80, height: 80, alt: "" %>
                 <% else %>
-                  <%= image_tag "no_image.jpg", width: 80, height: 80, alt: "" %>
+                  <div class="no-image">NO IMAGE</div>
                 <% end %>
-                <br>
-              <% end %>
-            </td>
+              </div>
+              <div class="user-name">
+                <%= book.user.name %>
+              </div>
+            <% end %>
+          </td>
 
-            <!-- Title（クリックで show） -->
-            <td><%= link_to book.title, book_path(book) %></td>
-
-            <!-- Opinion -->
-            <td><%= book.body %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>   <!-- col-md-9 -->
-</div>     <!-- row -->
-</div>     <!-- container -->
+          <td><%= link_to book.title, book_path(book) %></td>
+          <td><%= book.body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

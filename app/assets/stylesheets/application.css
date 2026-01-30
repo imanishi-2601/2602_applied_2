@@ -207,3 +207,9 @@ body {
   font-weight: bold;
   text-shadow: 0 0 2px;
 }
+
+.user-card-link {
+  display: inline-flex;     /* ← 縦並びを制御できる文脈にする */
+  flex-direction: column;  /* ← 上から下に積む */
+  line-height: 1;          /* ← 余計な高さを消す */
+}

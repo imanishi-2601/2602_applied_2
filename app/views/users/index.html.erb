@@ -8,7 +8,7 @@
       <% if @user.profile_image.attached? %>
         <%= image_tag @user.profile_image, class: "avatar-image" %>
       <% else %>
-        <%= image_tag "no_image.jpg", class: "avatar-image" %>
+        <span class="no-image">NO IMAGE</span>
       <% end %>
     </div>
 
