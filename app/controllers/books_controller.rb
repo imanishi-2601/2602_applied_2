@@ -5,7 +5,8 @@ class BooksController < ApplicationController
   def index
     @user     = Current.session.user          # 左カラム User info
     @new_book = Book.new                      # 左カラム New bookフォーム
-    @books    = Book.includes(:user).all      # 右：Books一覧
+    @books    = Book.includes(:user, :comments).all      # 右：Books一覧
+    @comment  = Comment.new
   end
 
   def create
@@ -25,6 +26,7 @@ class BooksController < ApplicationController
     # @book は set_book で取得済み（右：本の詳細）
     @user     = @book.user                    # 左カラム User info（本の投稿者）
     @new_book = Book.new                      # 左カラム New bookフォーム
+    @comments = @book.comments.includes(:user).order(created_at: :desc)
   end
 
   def edit

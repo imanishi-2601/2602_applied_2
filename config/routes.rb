@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   resource :session
   resources :passwords, param: :token
-  resources :books, only: [:index, :show, :create, :edit, :update, :destroy]
+  resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do
+    resource :favorite, only: [:create, :destroy]
+  end
+  resources :books do
+    resources :comments, only: [:create, :destroy]
+  end
 
 
   root "homes#top"

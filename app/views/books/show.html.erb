@@ -27,19 +27,58 @@
 
             <td><%= link_to @book.title, book_path(@book) %></td>
             <td><%= @book.body %></td>
-
-<td class="book-actions">
-  <% if @book.user == current_user %>
-    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success me-2" %>
+<tr>
+  <td colspan="3">
+<div class="book-detail-header">
+  <div class="book-detail-actions">
+    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %>
     <%= link_to "Destroy", book_path(@book),
         class: "btn btn-sm btn-danger",
         data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-  <% end %>
-</td>
-          </tr>
+  </div>
+</div>
+  </td>
+</tr>
+<hr class="book-detail-sep">
+
+            <td><%= @book.comments.count %></td>
+
+            </tr>
         </tbody>
       </table>
-    </div>
+      <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+          <div class="comment-item">
+            <div class="comment-meta">
+              <span class="comment-user"><%= comment.user.name %></span>
+              <span class="comment-time"><%= l(comment.created_at, format: :short) %></span>
+            </div>
+            <div class="comment-body-inline">
+              <%= comment.body %>
+            </div>
+            <% if comment.user == current_user %>
+              <%= link_to "Destroy", book_comment_path(@book, comment),
+                  class: "btn btn-sm btn-danger",
+                  data: { turbo_method: :delete, turbo_confirm: "このコメントを削除しますか？" } %>
+            <% end %>
+          </div>
 
+        <% end %>
+        <% else %>
+          <p>まだコメントはありません。</p>
+        <% end %>
+
+        <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+        <% end %>
+
+        <td>
+          <%= form_with model: [@book, Comment.new], local: true do |f| %>
+          <%= f.text_area :body %> <%= f.submit "Create Comment", class: "btn btn-success align-self-start" %> <% end %>
+        </td>
+
+      </div>
   </div>
 </div>

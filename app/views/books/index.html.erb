@@ -44,8 +44,32 @@
 
               <td><%= link_to book.title, book_path(book) %></td>
               <td><%= book.body %></td>
+<td class="favorite-cell">
+  <div class="book-actions">
+    <% liked = book.favorites.exists?(user_id: Current.session.user.id) %>
+
+    <%= button_to book_favorite_path(book),
+        method: liked ? :delete : :post,
+        class: "favorite-btn #{liked ? 'is-liked' : 'is-unliked'}",
+        form_class: "favorite-form" do %>
+
+      <% if liked %>
+        <i class="bi bi-heart-fill favorite-liked"></i>
+      <% else %>
+        <i class="bi bi-heart favorite-icon"></i>
+      <% end %>
+
+      <span class="favorite-count"><%= book.favorites.count %></span>
+    <% end %>
+
+    <span class="comment-count">コメント数：<%= book.comments.size %></span>
+  </div>
+</td>
+
             </tr>
           <% end %>
+
+
         </tbody>
       </table>
     </div>
