@@ -13,6 +13,12 @@ Rails.application.routes.draw do
   resources :books do
     resources :comments, only: [:create, :destroy]
   end
+  resources :users do
+    member do
+      post :follow
+      delete :unfollow
+    end
+  end
 
 
   root "homes#top"

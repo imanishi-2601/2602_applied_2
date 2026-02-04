@@ -18,6 +18,15 @@
       <th class="pe-3">introduction</th>
       <td><%= user.introduction %></td>
     </tr>
+<tr>
+  <th class="pe-3">フォロー数</th>
+  <td><%= current_user.followings.count %></td>
+</tr>
+
+<tr>
+  <th class="pe-3">フォロワー数</th>
+  <td><%= current_user.followers.count %></td>
+</tr>
   </table>
 
   <%= link_to edit_user_path(user),

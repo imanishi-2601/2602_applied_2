@@ -1,0 +1,19 @@
+<%= turbo_stream.replace "follow_area_#{@user.id}" do %>
+  <%= render partial: "users/follow_area", locals: { user: @user } %>
+<% end %>
+
+<%= turbo_stream.replace "follow_area_#{current_user.id}" do %>
+  <%= render partial: "users/follow_area", locals: { user: current_user } %>
+<% end %>
+
+<%= turbo_stream.replace "follow-area-#{@user.id}" do %>
+  <%= render "users/follow_area", user: @user %>
+<% end %>
+
+<%= turbo_stream.replace "follow-area-#{@user.id}" do %>
+  <%= render "users/follow_area", user: @user %>
+<% end %>
+
+<%= turbo_stream.replace "follow-area-#{current_user.id}" do %>
+  <%= render "users/follow_area", user: current_user %>
+<% end %>

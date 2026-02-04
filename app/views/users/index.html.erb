@@ -13,6 +13,8 @@
             <th>image</th>
             <th>name</th>
             <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +31,11 @@
               </td>
 
               <td><%= user.name %></td>
+              <td colspan="3">
+                <turbo-frame id="follow_area_<%= user.id %>">
+                  <%= render "users/follow_area", user: user %>
+                </turbo-frame>
+              </td>
 
               <td>
                 <%= link_to "Show", user_path(user) %>
