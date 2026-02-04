@@ -362,3 +362,30 @@ a.btn.btn-info {
   border: 0;
   border-top: 1px solid #ddd;
 }
+
+.follow-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.follow-form {
+  display: inline;
+  margin: 0;
+}
+
+.follow-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.follow-label {
+  font: inherit;
+  min-width: 90px;
+}
+
+.follow-value {
+  font: inherit;
+  text-align: right;
+}

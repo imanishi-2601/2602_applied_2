@@ -1,0 +1,34 @@
+<!-- FOLLOW_AREA_MARK_123 -->
+<% stack = local_assigns.fetch(:stack, false) %>
+
+<div id="follow-area-<%= user.id %>" class="<%= 'follow-area' unless stack %>">
+
+  <% if stack %>
+  <div class="follow-row">
+    <span class="follow-label">フォロー数</span>
+    <span class="follow-value"><%= user.followings.count %></span>
+  </div>
+
+  <div class="follow-row">
+    <span class="follow-label">フォロワー数</span>
+    <span class="follow-value"><%= user.followers.count %></span>
+  </div>
+  <% else %>
+    <span id="followings-count-<%= user.id %>">
+      フォロー数: <%= user.followings.count %>
+    </span>
+    <span id="followers-count-<%= user.id %>">
+      フォロワー数: <%= user.followers.count %>
+    </span>
+  <% end %>
+
+  <% if user != current_user %>
+    <div id="follow-button-<%= user.id %>">
+      <% if current_user.following?(user) %>
+        <%= button_to "フォロー外す", unfollow_user_path(user), method: :delete, form: { data: { turbo: true }, class: "follow-form" } %>
+      <% else %>
+        <%= button_to "フォローする", follow_user_path(user), method: :post, form: { data: { turbo: true }, class: "follow-form" } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

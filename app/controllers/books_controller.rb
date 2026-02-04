@@ -20,6 +20,7 @@ class BooksController < ApplicationController
       @books = Book.includes(:user).all
       render :index, status: :unprocessable_entity
     end
+
   end
 
   def show
@@ -46,6 +47,8 @@ class BooksController < ApplicationController
     # @book は set_book で取得済み
     @book.destroy
     redirect_to books_path, notice: "Book deleted!", status: :see_other
+    @follow.destroy
+    redirect_back to books_path, notice: "フォローを解除しました"
   end
 
   private

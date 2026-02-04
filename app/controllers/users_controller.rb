@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show]
   before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :set_user, only: [:follow, :unfollow]
 
   def index
     @user  = Current.session.user   # 左（自分）
@@ -45,6 +46,31 @@ class UsersController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
+def follow
+  @user = User.find(params[:id])
+  current_user.follow(@user)
+
+  @user.reload
+  @current_user = current_user.reload
+
+  respond_to do |format|
+    format.turbo_stream
+    format.html { redirect_back fallback_location: users_path, notice: "フォローしました" }
+  end
+end
+
+def unfollow
+  @user = User.find(params[:id])
+  current_user.unfollow(@user)
+  @user.reload
+  @current_user = current_user.reload
+
+  respond_to do |format|
+    format.turbo_stream
+    format.html { redirect_back fallback_location: user_path(@user) }
+  end
+end
 
   private
 

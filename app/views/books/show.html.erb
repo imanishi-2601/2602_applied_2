@@ -27,23 +27,20 @@
 
             <td><%= link_to @book.title, book_path(@book) %></td>
             <td><%= @book.body %></td>
-<tr>
-  <td colspan="3">
-<div class="book-detail-header">
-  <div class="book-detail-actions">
-    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %>
-    <%= link_to "Destroy", book_path(@book),
-        class: "btn btn-sm btn-danger",
-        data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-  </div>
-</div>
-  </td>
-</tr>
-<hr class="book-detail-sep">
 
-            <td><%= @book.comments.count %></td>
+            <td colspan="3">
+              <div class="book-detail-header">
+                <div class="book-detail-actions">
+                  <%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %>
+                  <%= link_to "Destroy", book_path(@book),
+                  class: "btn btn-sm btn-danger",
+                  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+                </div>
+              </div>
+            </td>
 
-            </tr>
+            <hr class="book-detail-sep">
+          </tr>
         </tbody>
       </table>
       <% if @comments.any? %>
